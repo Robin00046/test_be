@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "c2b20213-70de-48cb-845d-b898031758ba",
+		"name": "Test BE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25108003"
+	},
+	"item": [
+		{
+			"name": "Dealer Login",
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": {
+						"secret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzMwNzI5MjkyLCJleHAiOjE3MzA3MzI4OTJ9.1u4FhOcWeWxNHfSUmlQjjnfh9idOVYZG58GtuqX5rss",
+						"algorithm": "HS256",
+						"isSecretBase64Encoded": false,
+						"payload": "{}",
+						"addTokenTo": "header",
+						"headerPrefix": "Bearer",
+						"queryParamKey": "token",
+						"header": "{}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\": \"admin\", \"password\": \"admin123\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/dealer/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Tambah Jadwal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"schedule_date\": \"2025-08-25\", \"quota\": 10 }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/schedules"
+			},
+			"response": []
+		},
+		{
+			"name": "Lihat Jadwal",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"schedule_date\": \"2025-08-25\", \"quota\": 10 }\r\n"
+				},
+				"url": "http://localhost:3000/schedules"
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Melakukan Booking",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Budi\",\r\n  \"phone_no\": \"08123456789\",\r\n  \"vehicle_type\": \"Avanza\",\r\n  \"license_plate\": \"B 1234 CD\",\r\n  \"vehicle_problem\": \"Mesin bunyi keras\",\r\n  \"service_schedule_id\": 1,\r\n  \"service_time\": \"09:00\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/bookings"
+			},
+			"response": []
+		},
+		{
+			"name": "Lihat Semua Booking",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Budi\",\r\n  \"phone_no\": \"08123456789\",\r\n  \"vehicle_type\": \"Avanza\",\r\n  \"license_plate\": \"B 1234 CD\",\r\n  \"vehicle_problem\": \"Mesin bunyi keras\",\r\n  \"service_schedule_id\": 1,\r\n  \"service_time\": \"09:00\"\r\n}\r\n"
+				},
+				"url": "http://localhost:3000/bookings"
+			},
+			"response": []
+		},
+		{
+			"name": "Ubah Status Konfirmasi",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"status_id\": 2 }  // 2 = konfirmasi batal (kuota akan kembali)\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/bookings/1/status"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTc1NTkzNjc1OSwiZXhwIjoxNzU2MDIzMTU5fQ.4k3s4zy-sOWDu7tN0axgsJBoLNrF831vArF_GANWRpM",
+			"type": "string"
+		}
+	]
+}
